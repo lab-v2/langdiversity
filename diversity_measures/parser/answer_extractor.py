@@ -20,7 +20,7 @@ def extract_last_letters(response: str):
     return response[0]
 
 
-def extract_draw(response: str):
+def extract_math_answer(response: str):
     response = response.lower()
     response = extract_answer(response)
     response = NumberExtractor.extract_decimals_from_text(response)
@@ -33,7 +33,7 @@ def extract_draw(response: str):
     return set(responses)
 
 
-def extract_csqa(response: str):
+def extract_multi_choice_answer(response: str):
     response = response.lower()
     response = extract_answer(response)
     response = re.findall(r'a|b|c|d|e', response, flags=re.IGNORECASE)
