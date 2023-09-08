@@ -10,5 +10,5 @@ from diversity_measures.models import OpenAIModel
 class TestOpenAI(unittest.TestCase):
     def test_basic(self):
         openai_model = OpenAIModel(openai_api_key=openai_api_key, model="gpt-3.5-turbo")
-        response = openai_model.generate("hi", count=1)
+        response = openai_model.generate("hi", count=2)
         print(response)
