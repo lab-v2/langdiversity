@@ -25,9 +25,11 @@ class OpenAIModel(AbstractBaseModel):
         self.extractor = extractor
 
     def generate(self, message: str, count: int = 1):
-        messages = [[SystemMessage(content=""),HumanMessage(content=message)]]
+        messages = [[SystemMessage(content=""), HumanMessage(content=message)]]
 
-        chat_openai = ChatOpenAI(**self.kwargs, n=count, model=self.model, openai_api_key=self.openai_api_key)
+        chat_openai = ChatOpenAI(
+            **self.kwargs, n=count, model=self.model, openai_api_key=self.openai_api_key
+        )
 
         response = chat_openai.generate(
             messages=messages,
