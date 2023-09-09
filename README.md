@@ -1,18 +1,22 @@
 # LangDiversity
 
-[![PyPI version](https://badge.fury.io/py/diversity-measures.svg)](LINK_TO_PYPI)
+[![PyPI version](https://badge.fury.io/py/langdiversity.svg)](LINK_TO_PYPI)
 [![Python version](https://img.shields.io/badge/python-3.7%2B-blue)](LINK_TO_PYTHON_VERSION)
-[![License](https://img.shields.io/badge/license-MIT-green)](LINK_TO_LICENSE)
+[![License](https://img.shields.io/badge/license-BSD%203--Clause-blue)](LICENSE)
 
 Elevate your language models with insightful diversity metrics.
+
+## Links
+
+Paper: https://arxiv.org/abs/2308.11189
+
+Video: https://www.youtube.com/watch?v=BekDOLm6qBI&t=10s&ab_channel=NeuroSymbolic
 
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
+- [Usage](#usage)
 - [Bibtex](#bibtex)
 - [License](#license)
 - [Contacts](#contacts)
@@ -26,47 +30,25 @@ The primary goal of this project is to assist researchers and developers in anal
 ## Installation
 
 ```bash
-pip install diversity-measures
+pip install langdiversity
 ```
 
-## Quick Start
+## Usage
 
-```python
-from langdiversity.models import OpenAIModel
-from langdiversity.measures import ShannonEntropyMeasure
-from langdiversity.utils import PromptSelection
-
-# Initialize the OpenAI model and diversity measure
-model = OpenAIModel(openai_api_key="YOUR_OPENAI_API_KEY")
-diversity_measure = ShannonEntropyMeasure()
-
-# Use the PromptSelection utility
-prompt_selection = PromptSelection(model=model, diversity_measure=diversity_measure)
-selected_prompt, selected_diversity = prompt_selection.generate(["Your list of prompts here..."])
-
-print("Selected Prompt:", selected_prompt)
-print("Selected Diversity:", selected_diversity)
-```
-
-## Documentation
-
-Detailed documentation is available [here]().
-
-## Contributing
-
-We welcome contributions! Please see our [contribution guidelines]() for more details.
+Detailed documentation is available [here](https://github.com/lab-v2/diversity_package/tree/main/docs/langdiversity_library.md).
 
 ## Bibtex
 
 If you used this software in your work please cite our paper
 
 ```bibtex
-@article{ngu2023diversity,
-  title={Diversity Measures: Domain-Independent Proxies for Failure in Language Model Queries},
-  author={Ngu, Noel and Lee, Nathaniel and Shakarian, Paulo},
-  journal={arXiv preprint arXiv:2308.11189},
-  year={2023},
-  url={https://arxiv.org/abs/2308.11189},
+@misc{ngu2023diversity,
+      title={Diversity Measures: Domain-Independent Proxies for Failure in Language Model Queries},
+      author={Noel Ngu and Nathaniel Lee and Paulo Shakarian},
+      year={2023},
+      eprint={2308.11189},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
 }
 ```
 

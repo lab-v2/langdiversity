@@ -44,4 +44,4 @@ class PromptSelection:
                 {"responses": responses, "diversity": diversity, "prompt": prompt}
             )
 
-        return selected_prompt, selected_diversity, info
+        return selected_prompt, selected_diversity

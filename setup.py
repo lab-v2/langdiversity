@@ -1,13 +1,20 @@
 from setuptools import find_packages, setup
 
+# Read the contents of README file
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
+
 setup(
     name='langdiversity',
     packages=find_packages(exclude=['tests']),
-    version='0.0.1',
+    version='0.0.2',
     description='A tool to elevate your language models with insightful diversity metrics.',
-    author='Noel Ngu, Nathaniel Lee',                         # change later
-    author_email='nngu2@asu.edu, nlee51@asu.edu',             # change later
-    url='https://github.com/your_github_username/langdiversity',  # change later
+    long_description=long_description,  
+    long_description_content_type="text/markdown",  
+    author='Noel Ngu, Nathaniel Lee',                        
+    author_email='nngu2@asu.edu, nlee51@asu.edu',             
+    url='https://github.com/lab-v2/diversity_package',  
     license='BSD 3-clause',
     install_requires=[
         'aiohttp==3.8.5',
@@ -44,10 +51,10 @@ setup(
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+
     ],
-    python_requires='>=3.7',
+    python_requires='>=3.9',
 )
