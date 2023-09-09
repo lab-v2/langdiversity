@@ -1,6 +1,6 @@
 import unittest
 
-from diversity_measures.measures import ShannonEntropyMeasure
+from langprobe.measures import ShannonEntropyMeasure
 
 class TestShannonEntropyMeasure(unittest.TestCase):
     def test_basic(self):

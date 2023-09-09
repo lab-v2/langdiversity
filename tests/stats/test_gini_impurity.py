@@ -1,6 +1,6 @@
 import unittest
 
-from diversity_measures.measures import GiniImpurityMeasure
+from langprobe.measures import GiniImpurityMeasure
 
 class TestGiniImpurityMeasure(unittest.TestCase):
     def test_basic(self):

@@ -1,4 +1,4 @@
-from diversity_measures.utils import DiversityCalculator
+from langprobe.utils import DiversityCalculator
 
 # Calculate diversity measures
 diversity_calculator = DiversityCalculator(default_measures=["entropy", "gini"])
