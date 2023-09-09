@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
-from langprobe.models import OpenAIModel
+from langdiversity.models import OpenAIModel
 
 class TestOpenAI(unittest.TestCase):
     def test_basic(self):

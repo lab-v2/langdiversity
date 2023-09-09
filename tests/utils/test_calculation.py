@@ -1,9 +1,9 @@
 # import unittest
 # import os
 # from dotenv import load_dotenv
-# from langprobe.models import OpenAIModel
-# from langprobe.utils import DiversityCalculator
-# from langprobe.parser import extract_last_letters
+# from langdiversity.models import OpenAIModel
+# from langdiversity.utils import DiversityCalculator
+# from langdiversity.parser import extract_last_letters
 
 # load_dotenv()
 # openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -15,7 +15,7 @@
 #         self.openai_model = OpenAIModel(openai_api_key=openai_api_key, model="gpt-3.5-turbo", extractor=extract_last_letters)
 #         self.diversity_calculator = DiversityCalculator()
 
-#     def test_langprobe(self):
+#     def test_langdiversity(self):
 #         ll_question = "Take the last letter of each word in \"Tal Evan Lesley Sidney\" and concatenate them."
 #         prompt = f"At the end, say 'the answer is [put the concatenated word here]'.\nQuestion: {ll_question}.\n "
 #         responses = self.openai_model.generate(prompt, count=5)

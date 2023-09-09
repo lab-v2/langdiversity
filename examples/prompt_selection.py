@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 
-from langprobe.utils import PromptSelection
-from langprobe.models import OpenAIModel
-from langprobe.measures import ShannonEntropyMeasure
-from langprobe.parser import extract_last_letters
+from langdiversity.utils import PromptSelection
+from langdiversity.models import OpenAIModel
+from langdiversity.measures import ShannonEntropyMeasure
+from langdiversity.parser import extract_last_letters
 
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")

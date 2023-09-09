@@ -1,13 +1,13 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='langprobe',
+    name='langdiversity',
     packages=find_packages(exclude=['tests']),
     version='0.0.1',
     description='A tool to elevate your language models with insightful diversity metrics.',
     author='Noel Ngu, Nathaniel Lee',                         # change later
     author_email='nngu2@asu.edu, nlee51@asu.edu',             # change later
-    url='https://github.com/your_github_username/langprobe',  # change later
+    url='https://github.com/your_github_username/langdiversity',  # change later
     license='BSD 3-clause',
     install_requires=[
         'aiohttp==3.8.5',

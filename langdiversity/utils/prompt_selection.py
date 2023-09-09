@@ -1,7 +1,7 @@
 from typing import List
 
-from langprobe.measures import AbstractMeasure
-from langprobe.models import AbstractBaseModel
+from langdiversity.measures import AbstractMeasure
+from langdiversity.models import AbstractBaseModel
 
 class PromptSelection:
     def __init__(

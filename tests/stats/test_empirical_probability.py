@@ -1,6 +1,6 @@
 import unittest
 
-from langprobe.measures import empirical_probability
+from langdiversity.measures import empirical_probability
 
 class TestEmpiricalProbability(unittest.TestCase):
     def test_basic(self):

@@ -1,9 +1,9 @@
 import unittest
 import os
 from dotenv import load_dotenv
-from langprobe.models import OpenAIModel
-from langprobe.utils import DiversityCalculator, PromptSelection
-from langprobe.parser import extract_last_letters
+from langdiversity.models import OpenAIModel
+from langdiversity.utils import DiversityCalculator, PromptSelection
+from langdiversity.parser import extract_last_letters
 
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
