@@ -30,7 +30,7 @@ def extract_math_answer(response: str):
         try: responses.append(eval(r))
         except: pass
     
-    return set(responses)
+    return frozenset(responses)
 
 
 def extract_multi_choice_answer(response: str):

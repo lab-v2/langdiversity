@@ -14,7 +14,7 @@ model = OpenAIModel(openai_api_key=openai_api_key, extractor=extract_last_letter
 prompt_selection = PromptSelection(
     model=model, num_responses=10, diversity_measure=diversity_measure, selection="min"
 )
-selected_prompt, selected_diversity, info = prompt_selection.generate(
+selected_prompt, selected_diversity = prompt_selection.generate(
         [
             "At the end, say 'the answer is [put the concatenated word here]'.\nQuestion: Take the last letter of each word in \"Tal Evan Lesley Sidney\" and concatenate them..",
             "At the end, say 'the answer is [put the concatenated word here]'.\nQuestion: Concatenate the last letter of each word in \"Tal Evan Lesley Sidney\".",
