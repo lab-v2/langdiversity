@@ -12,7 +12,6 @@ class DiversityCalculator:
 
         results = {}
         
-        # TODO: maybe include more? Or allow users to insert more?
         if "entropy" in measures:
             entropy_measure = ShannonEntropyMeasure()
             results["entropy"] = entropy_measure.generate(values)

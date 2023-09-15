@@ -5,7 +5,7 @@ pypi project: https://pypi.org/project/langdiversity/
 ## Install
 
 ```bash
-pip install langchain
+pip install langdiversity
 ```
 
 ## Usage
@@ -16,20 +16,44 @@ Example:
 from langdiversity.models import OpenAIModel
 from langdiversity.measures import ShannonEntropyMeasure
 from langdiversity.utils import PromptSelection
+from langdiversity.parser import # Select a parser that suits your question set
 
 # Initialize the OpenAI model and diversity measure
-model = OpenAIModel(openai_api_key="YOUR_OPENAI_API_KEY")
+model = OpenAIModel(openai_api_key="[YOUR API KEY]", extractor="[SELECT YOUR PARSER](optional)")
 diversity_measure = ShannonEntropyMeasure()
 
 # Use the PromptSelection utility
 prompt_selection = PromptSelection(model=model, num_responses=10, diversity_measure=diversity_measure)
 
-# Selects the prompt with the configured diversity measure criteria from the LLM's 10 responses
+# Pass in question set to the LLM & selects the prompt with the configured diversity measure criteria from the LLM's 10 responses
 selected_prompt, selected_measure = prompt_selection.generate(["Your list of prompts here..."])
 
 print("Selected Prompt:", selected_prompt)
 print("Selected Measure:", selected_measure)
 ```
+
+### Modules:
+
+LangDiversity offers a variety of modules for different use-cases. Below are the essential modules you can either directly import or use as a foundation for creating your own custom solutions:
+
+- [Language Models](https://github.com/lab-v2/langdiversity/tree/main/langdiversity/models) (`langdiversity.models`)
+
+  - `OpenAIModel`: Interfaces with OpenAI's GPT models.
+
+- [Diversity Measures](https://github.com/lab-v2/langdiversity/tree/main/langdiversity/measures) (`langdiversity.measures`)
+
+  - `ShannonEntropyMeasure`: Implements Shannon's entropy as a diversity measure.
+  - `GiniImpurityMeasure`: Implements Gini Impurity as a diversity measure.
+
+- [Utility Classes](https://github.com/lab-v2/langdiversity/tree/main/langdiversity/utils) (`langdiversity.utils`)
+
+  - `PromptSelection`: Handles the selection of prompts based on diversity measures.
+  - `DiversityCalculator`: Calculates various diversity measures for a given set of values. Supports Shannon's entropy and Gini impurity by default.
+
+- [Parsers](https://github.com/lab-v2/langdiversity/tree/main/langdiversity/parser) (`langdiversity.parsers`)
+  - `extract_last_letters(response: str)`: Extracts the last letters of each word in the response.
+  - `extract_math_answer(response: str)`: Extracts numerical answers from a mathematical question in the response.
+  - `extract_multi_choice_answer(response: str)`: Extracts the selected choice (A, B, C, D, E) from a multiple-choice question in the response.
 
 ### PromptSelection Paramaters:
 

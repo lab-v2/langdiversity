@@ -12,6 +12,8 @@ Paper: https://arxiv.org/abs/2308.11189
 
 Video: https://www.youtube.com/watch?v=BekDOLm6qBI&t=10s&ab_channel=NeuroSymbolic
 
+Check out [LangDiversity Hello World](https://github.com/lab-v2/langdiversity/blob/main/docs/hello-world.md) if you're new.
+
 ## Table of Contents
 
 - [Introduction](#introduction)

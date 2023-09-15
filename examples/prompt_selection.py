@@ -12,7 +12,7 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 diversity_measure = ShannonEntropyMeasure()
 model = OpenAIModel(openai_api_key=openai_api_key, extractor=extract_last_letters)
 prompt_selection = PromptSelection(
-    model=model, num_responses=10, diversity_measure=diversity_measure, selection="min"
+    model=model, num_responses=4, diversity_measure=diversity_measure, selection="min"
 )
 selected_prompt, selected_diversity = prompt_selection.generate(
         [
