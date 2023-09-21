@@ -1,5 +1,7 @@
 from typing import List
 
+from langdiversity.extras.spinner import loading_spinner
+
 from langdiversity.measures import AbstractMeasure
 from langdiversity.models import AbstractBaseModel
 
@@ -29,9 +31,13 @@ class PromptSelection:
         selected_diversity = float("inf") if self.selection == "min" else float("-inf")
 
         info = []
-        for prompt in prompts:
-            responses = self.model.generate(prompt, self.num_responses)
-            diversity = self.diversity_measure.generate(responses)
+
+        total_prompts = len(prompts)
+        for i, prompt in enumerate(prompts):
+            with loading_spinner(f"Collecting {self.num_responses} responses...", current_step=i+1, total_steps=total_prompts):
+                responses = self.model.generate(prompt, self.num_responses)
+            with loading_spinner("Performing diversity measure calculations...", current_step=i+1, total_steps=total_prompts):
+                diversity = self.diversity_measure.generate(responses)
 
             if self.selection == "max" and diversity > selected_diversity:
                 selected_diversity = diversity
