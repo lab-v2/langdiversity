@@ -8,7 +8,7 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name='langdiversity',
     packages=find_packages(exclude=['tests']),
-    version='1.0.3',
+    version='1.0.5',
     description='A tool to elevate your language models with insightful diversity metrics.',
     long_description=long_description,  
     long_description_content_type="text/markdown",  
