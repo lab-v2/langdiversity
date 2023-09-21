@@ -16,6 +16,7 @@ multidict==6.0.4
 mypy-extensions==1.0.0
 numexpr==2.8.5
 numpy==1.25.2
+openai==0.28.0
 packaging==23.1
 pydantic==2.3.0
 pydantic_core==2.6.3

@@ -8,7 +8,7 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name='langdiversity',
     packages=find_packages(exclude=['tests']),
-    version='1.0.1',
+    version='1.0.3',
     description='A tool to elevate your language models with insightful diversity metrics.',
     long_description=long_description,  
     long_description_content_type="text/markdown",  
@@ -35,6 +35,7 @@ setup(
         'mypy-extensions==1.0.0',
         'numexpr==2.8.5',
         'numpy==1.25.2',
+        'openai==0.28.0',
         'packaging==23.1',
         'pydantic==2.3.0',
         'pydantic_core==2.6.3',
