@@ -8,13 +8,13 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name='langdiversity',
     packages=find_packages(exclude=['tests']),
-    version='1.0.1',
+    version='1.0.3',
     description='A tool to elevate your language models with insightful diversity metrics.',
     long_description=long_description,  
     long_description_content_type="text/markdown",  
     author='Noel Ngu, Nathaniel Lee',                        
     author_email='nngu2@asu.edu, nlee51@asu.edu',             
-    url='https://github.com/lab-v2/diversity_package',  
+    url='https://github.com/lab-v2/langdiversity',  
     license='BSD 3-clause',
     install_requires=[
         'aiohttp==3.8.5',
@@ -35,6 +35,7 @@ setup(
         'mypy-extensions==1.0.0',
         'numexpr==2.8.5',
         'numpy==1.25.2',
+        'openai==0.28.0',
         'packaging==23.1',
         'pydantic==2.3.0',
         'pydantic_core==2.6.3',
