@@ -1,24 +1,24 @@
+from langdiversity.extras.spinner import loading_spinner
 from ..measures import ShannonEntropyMeasure, GiniImpurityMeasure
 
 class DiversityCalculator:
-    # by default, include entropy as part of diversity measures
-    def __init__(self, default_measures=["entropy"]):
-        self.default_measures = default_measures
+    def __init__(self, measures=["entropy"]):
+        self.measures = measures
+        self.measure_classes = {
+            'entropy': ShannonEntropyMeasure,
+            'gini': GiniImpurityMeasure,
+        }
 
-    # returns diversity measure results for each question
-    def calculate(self, values, measures=None):
-        if measures is None:
-            measures = self.default_measures
+    def calculate(self, values):
+        measures = self.measures
 
         results = {}
-        
-        if "entropy" in measures:
-            entropy_measure = ShannonEntropyMeasure()
-            results["entropy"] = entropy_measure.generate(values)
-        
-        if "gini" in measures:
-            gini_measure = GiniImpurityMeasure()
-            results["gini"] = gini_measure.generate(values)
-        
+
+        for measure_name in measures:
+            measure_class = self.measure_classes.get(measure_name)
+            if measure_class is not None:
+                measure_instance = measure_class()
+                with loading_spinner(f"Calculating '{measure_name}' for {len(values)} values..."):
+                    results[measure_name] = measure_instance.generate(values)
+
         return results
-    
