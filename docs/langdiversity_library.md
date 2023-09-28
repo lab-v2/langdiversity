@@ -13,23 +13,37 @@ pip install langdiversity
 Example:
 
 ```python
+import os
+from dotenv import load_dotenv
+
+from langdiversity.utils import PromptSelection, DiversityMeasureCollector
 from langdiversity.models import OpenAIModel
 from langdiversity.measures import ShannonEntropyMeasure
-from langdiversity.utils import PromptSelection
-from langdiversity.parser import # Select a parser that suits your question set
+from langdiversity.parser import extract_last_letters  # Select a parser that suits your question set
+
+load_dotenv()
+openai_api_key = os.getenv("OPENAI_API_KEY")  # place your language model's API key in a .env file
 
 # Initialize the OpenAI model and diversity measure
-model = OpenAIModel(openai_api_key="[YOUR API KEY]", extractor="[SELECT YOUR PARSER](optional)")
+model = OpenAIModel(openai_api_key=openai_api_key, extractor=extract_last_letters)
 diversity_measure = ShannonEntropyMeasure()
 
-# Use the PromptSelection utility
-prompt_selection = PromptSelection(model=model, num_responses=10, diversity_measure=diversity_measure)
+# Define your list of prompts
+prompts = [
+    "At the end, say 'the answer is [put the concatenated word here]'.\nQuestion: Take the last letter of each word in \"Tal Evan Lesley Sidney\" and concatenate them..",
+    # ... Add more prompts as needed
+]
 
-# Pass in question set to the LLM & selects the prompt with the configured diversity measure criteria from the LLM's 10 responses
-selected_prompt, selected_measure = prompt_selection.generate(["Your list of prompts here..."])
+# Create an instance of DiversityMeasureCollector and collect diversity measures
+diversity_collector = DiversityMeasureCollector(model=model, num_responses=4, diversity_measure=diversity_measure)
+diversity_collector.collect(prompts)
 
-print("Selected Prompt:", selected_prompt)
-print("Selected Measure:", selected_measure)
+# Create an instance of PromptSelection and select a prompt
+prompt_selection = PromptSelection(data=diversity_collector.data, selection="min")
+selected_prompt, selected_measure = prompt_selection.select()
+
+print("Selected prompt:", selected_prompt)
+print("Selected measure:", selected_measure)
 ```
 
 ### Modules:
@@ -48,20 +62,24 @@ LangDiversity offers a variety of modules for different use-cases. Below are the
 - [Utility Classes](https://github.com/lab-v2/langdiversity/tree/main/langdiversity/utils) (`langdiversity.utils`)
 
   - `PromptSelection`: Handles the selection of prompts based on diversity measures.
-  - `DiversityCalculator`: Calculates various diversity measures for a given set of values. Supports Shannon's entropy and Gini impurity by default.
+  - `DiversityMeasureCollector`: Collects diversity measures for a given set of prompts using a specified language model and diversity measure algorithm.
 
 - [Parsers](https://github.com/lab-v2/langdiversity/tree/main/langdiversity/parser) (`langdiversity.parsers`)
   - `extract_last_letters(response: str)`: Extracts the last letters of each word in the response.
   - `extract_math_answer(response: str)`: Extracts numerical answers from a mathematical question in the response.
   - `extract_multi_choice_answer(response: str)`: Extracts the selected choice (A, B, C, D, E) from a multiple-choice question in the response.
 
-### PromptSelection Paramaters:
+### DiversityMeasureCollector Paramaters:
 
 - `model`: The language model you want to use. In this example, we're using OpenAI's model.
 
 - `diversity_measure`: The measure of diversity measure you want to use. Here, we're using entropy.
 
 - `num_responses`: The number of responses you want the model to generate for each prompt. Default is 1.
+
+### PromptSelection Parameters:
+
+- `data`: A list of dictionaries, each containing information about a prompt, the responses it generated, and its diversity measure. This data is collected using the `DiversityMeasureCollector` class.
 
 - `selection`: Determines how the best prompt is selected based on its diversity measure. It can be:
 

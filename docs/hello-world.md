@@ -44,30 +44,50 @@ from langdiversity.parser import extract_math_answer
 model = OpenAIModel(openai_api_key="[API KEY]", extractor=extract_math_answer)
 ```
 
-### Prompt Selection
+### Collecting Diversity Measures
 
-Now, we initialize the `PromptSelection` object. This is where we specify how many responses we want from the language model for each prompt, the diversity measure to use, and the selection method.
+In this step, we initialize the `DiversityMeasureCollector` object. This is where we specify how many responses we want from the language model for each prompt and the diversity measure to use.
 
 ```python
-from langdiversity.utils import PromptSelection
-prompt_selection = PromptSelection(model=model, num_responses=4, diversity_measure=diversity_measure, selection='min')
+from langdiversity.utils import DiversityMeasureCollector
+diversity_collector = DiversityMeasureCollector(model=model, num_responses=4, diversity_measure=diversity_measure)
 ```
 
-### Generate and Select Prompts
+### Collecting Data
 
-Finally, we pass in a list of prompts to the `PromptSelection` object. It will send these prompts to the language model, calculate the diversity measure for each set of responses, and then select the prompt with the minimum (or maximum) diversity measure.
-
-The selected prompt and its corresponding diversity measure are stored in `selected_prompt` and `selected_measure`, respectively.
+Next, we pass in a list of prompts to the `DiversityMeasureCollector` object. It will send these prompts to the language model, collect the responses, and calculate the diversity measure for each set of responses.
 
 Note: The prompts are structured to guide the language model in generating a specific type of response. This makes it easier for the parser to extract clean answers.
 
 ```python
-selected_prompt, selected_measure = prompt_selection.generate([
+prompts = [
             "At the end, say 'the answer is [put your numbers here separated by commas]'.\nQuestion: What is the speed of the current if Junior's boat can cover 12 miles downstream in the same time it takes to travel 9 miles upstream, given that his boat's speed in still water is 15 miles per hour?",
             "At the end, say 'the answer is [put your numbers here separated by commas]'.\nQuestion: What is the speed of the current if Junior's boat travels at a constant speed of 15 miles per hour in still water and he spends the same amount of time traveling 12 miles downstream as he does traveling 9 miles upstream?.",
             "At the end, say 'the answer is [put your numbers here separated by commas]'.\nQuestion: Juniors boat will go 15 miles per hour in still water . If he can go 12 miles downstream in the same amount of time as it takes to go 9 miles upstream , then what is the speed of the current?",
-])
+
+]
+
+diversity_collector.collect(prompts, verbose=True)  # Set verbose to True to see intermediate values
+```
+
+### Prompt Selection
+
+Now, we initialize the `PromptSelection` object with the data collected in the previous step.
+
+```python
+from langdiversity.utils import PromptSelection
+prompt_selection = PromptSelection(data=diversity_collector.data, selection='min')
+```
+
+### Selecting Prompts
+
+Finally, we call the select method on the `PromptSelection` object to select the prompt with the desired diversity measure based on the user's selection method.
+
+In this example, the selected prompt and its corresponding diversity measure are stored in `selected_prompt` and `selected_measure`, respectively.
+
+```python
+selected_prompt, selected_diversity = prompt_selection.select()
 
 print("Selected Prompt:", selected_prompt)
-print("Selected Measure:", selected_measure)
+print("Selected Diversity:", selected_diversity)
 ```
