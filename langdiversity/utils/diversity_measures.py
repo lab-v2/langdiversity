@@ -21,8 +21,8 @@ class DiversityMeasureCollector:
                 diversity = self.diversity_measure.generate(responses)
             if verbose:
                 print(f"Prompt {i + 1}: {prompt}")
-                print(f"Responses: {', '.join(responses)}")  # Assuming responses are strings
-                print(f"Diversity: {diversity}")
+                print(f"Responses: {', '.join(responses)}")  
+                print(f"Diversity Measure ({self.diversity_measure.__class__.__name__}): {diversity}")
             self.data.append(
                 {"prompt": prompt, "responses": responses, "diversity": diversity}
             )

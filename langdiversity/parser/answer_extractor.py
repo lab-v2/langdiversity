@@ -4,7 +4,7 @@ from .number_extractor import NumberExtractor
 
 # =======================================
 # This class is concerned with evaluating
-# ChatGPT. It contains functions used to
+# ChatGPT responses. It contains functions used to
 # evaluate very specific datasets
 # =======================================
 def last_letters(response: str, answer: str):
