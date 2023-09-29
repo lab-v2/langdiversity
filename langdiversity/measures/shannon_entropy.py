@@ -8,4 +8,4 @@ class ShannonEntropyMeasure(AbstractMeasure):
     def generate(self, values: List[Hashable]) -> float:
         probabilities = empirical_probability(values=values)
         entropy = -sum(probability * log2(probability) for probability in probabilities.values() if probability > 0)
-        return entropy
+        return abs(entropy)
