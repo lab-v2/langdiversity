@@ -2,57 +2,62 @@
 
 pypi project: https://pypi.org/project/langdiversity/
 
-## Install
+## Table of Contents
+
+- [Installation](#installation)
+- [Utilties](#utilities)
+  - [Diversity Measures Utility](#diversity-measures-utility)
+  - [Prompt Selection Utility](#prompt-selection-utility)
+- [Modules](#modules)
+
+## Installation
 
 ```bash
 pip install langdiversity
 ```
 
-## Usage
+## Utilities
+
+### Diversity Measures Utility
 
 Example:
 
 ```python
-import os
-from dotenv import load_dotenv
-
-from langdiversity.utils import PromptSelection, DiversityMeasureCollector
-from langdiversity.models import OpenAIModel
 from langdiversity.measures import ShannonEntropyMeasure
-from langdiversity.parser import extract_last_letters  # Select a parser that suits your question set
+from langdiversity.models import OpenAIModel
+from langdiversity.utils import DiversityMeasureCollector
 
-load_dotenv()
-openai_api_key = os.getenv("OPENAI_API_KEY")  # place your language model's API key in a .env file
-
-# Initialize the OpenAI model and diversity measure
-model = OpenAIModel(openai_api_key=openai_api_key, extractor=extract_last_letters)
 diversity_measure = ShannonEntropyMeasure()
 
-# Define your list of prompts
+model = OpenAIModel(openai_api_key="[YOUR-API-KEY-HERE]")
+
 prompts = [
-    "At the end, say 'the answer is [put the concatenated word here]'.\nQuestion: Take the last letter of each word in \"Tal Evan Lesley Sidney\" and concatenate them..",
-    # ... Add more prompts as needed
+  # List of prompts/questions to be processed...
 ]
 
-# Create an instance of DiversityMeasureCollector and collect diversity measures
-diversity_collector = DiversityMeasureCollector(model=model, num_responses=4, diversity_measure=diversity_measure)
-diversity_collector.collect(prompts)
-
-# Create an instance of PromptSelection and select a prompt
-prompt_selection = PromptSelection(data=diversity_collector.data, selection="min")
-selected_prompt, selected_measure = prompt_selection.select()
-
-print("Selected prompt:", selected_prompt)
-print("Selected measure:", selected_measure)
+diversity_collector = DiversityMeasureCollector(model=model, num_responses=5, diversity_measure=diversity_measure)
+diversity_collector.collect(prompts, verbose=True)
 ```
 
-### Modules:
+### Prompt Selection Utility
+
+Example:
+
+```python
+# Continuing from the implementation above...
+
+from langdiversity.utils import PromptSelection
+prompt_selection = PromptSelection(data=diversity_collector.data, selection="min")
+selected_data = prompt_selection.select()
+```
+
+## Modules:
 
 LangDiversity offers a variety of modules for different use-cases. Below are the essential modules you can either directly import or use as a foundation for creating your own custom solutions:
 
 - [Language Models](https://github.com/lab-v2/langdiversity/tree/main/langdiversity/models) (`langdiversity.models`)
 
-  - `OpenAIModel`: Interfaces with OpenAI's GPT models.
+  - `OpenAIModel`: A wrapper around Langchain's ChatOpenAI to interact with OpenAI's GPT models, facilitating the generation of responses based on a provided message. It supports optional response extraction for further processing.
 
 - [Diversity Measures](https://github.com/lab-v2/langdiversity/tree/main/langdiversity/measures) (`langdiversity.measures`)
 
@@ -75,7 +80,7 @@ LangDiversity offers a variety of modules for different use-cases. Below are the
 
 - `diversity_measure`: The measure of diversity measure you want to use. Here, we're using entropy.
 
-- `num_responses`: The number of responses you want the model to generate for each prompt. Default is 1.
+- `num_responses`: The number of responses you want the model to generate for each prompt.
 
 ### PromptSelection Parameters:
 
@@ -88,5 +93,6 @@ LangDiversity offers a variety of modules for different use-cases. Below are the
 
 ### Output:
 
-- `selected_prompt`: The prompt that meets the specified diversity criteria (either min or max) among the given list of prompts.
-- `selected_measure`: The diversity measure of the `selected_prompt` based on the specified diversity measure (e.g., entropy).
+- `selected_data`: A dictionary containing:
+  - `selected_prompts`: A list of selected prompts based on the specified diversity criteria (either min or max).
+  - `diversity`: The diversity score of these selected prompts, based on the specified diversity measure (e.g., entropy).

@@ -76,18 +76,20 @@ Now, we initialize the `PromptSelection` object with the data collected in the p
 
 ```python
 from langdiversity.utils import PromptSelection
-prompt_selection = PromptSelection(data=diversity_collector.data, selection='min')
+prompt_selection = PromptSelection(data=diversity_collector.data, selection="min")
 ```
 
 ### Selecting Prompts
 
-Finally, we call the select method on the `PromptSelection` object to select the prompt with the desired diversity measure based on the user's selection method.
+Finally, we call the `select` method on the `PromptSelection` object to filter out the prompts based on the user's specified diversity measure.
 
-In this example, the selected prompt and its corresponding diversity measure are stored in `selected_prompt` and `selected_measure`, respectively.
+In this example, the data containing selected prompts and their corresponding diversity measure is stored in `selected_data`. We then print out the diversity score and each selected prompt.
 
 ```python
-selected_prompt, selected_diversity = prompt_selection.select()
+selected_data = prompt_selection.select()
 
-print("Selected Prompt:", selected_prompt)
-print("Selected Diversity:", selected_diversity)
+print(f"Diversity Score: {selected_data['diversity']}")
+print("Selected Prompts:")
+for prompt in selected_data['selected_prompts']:
+    print(prompt)
 ```
